@@ -16,5 +16,9 @@
 	"bugs": {
 		"url": "https://github.com/demosjarco/cloudflare-certificate-updater/issues"
 	},
-	"homepage": "https://github.com/demosjarco/cloudflare-certificate-updater#readme"
+	"homepage": "https://github.com/demosjarco/cloudflare-certificate-updater#readme",
+	"dependencies": {
+		"axios": "^0.21.0",
+		"dotenv": "^8.2.0"
+	}
 }
