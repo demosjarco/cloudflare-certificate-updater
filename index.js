@@ -25,6 +25,8 @@ function checkHostnames() {
 
 		const domainRegex = /[\w\d]+(?=\.\w+)/gi;
 		const longestHostname = input.reduce(function (a, b) { return a.length > b.length ? a : b; });
+		console.log('longest hostname ', longestHostname);
+		console.log('longest hostname regex ', longestHostname.match(domainRegex));
 		fileName = "cloudflare-" + longestHostname.match(domainRegex).join("-");
 
 		return input;
