@@ -81,4 +81,43 @@ function createEcdsaPrivKey() {
 	});
 }
 
+function createEcdsaCsr() {
+	function validateCountry() {
+		const countries = require("i18n-iso-countries");
+		let input = process.env.CLOUDFLARE_CERT_C;
+		const alpha3regex = /^\w{3}$/i;
+		const numericRegex = /\d{3}/i;
+
+		if (alpha3regex.test(input)) {
+			input = countries.alpha3ToAlpha2(input);
+		} else if (numericRegex.test(input)) {
+			input = countries.numericToAlpha2(input);
+		}
+		
+		if (countries.isValid(input)) {
+			return input;
+		} else {
+			throw new Error(input + "is an invalid country code");
+		}
+	}
+
+	let openssl = spawn("openssl", ['req', '-new', '-sha512', '-key', fileName + '.key', '-noout', '-out', fileName + '.csr', '-subj', '/C=' + validateCountry() + '/ST=California/L=San Diego/O=Digital Elf/CN=digitalelf.net'], {
+		cwd: '/tmp/',
+		windowsHide: true
+	});
+	openssl.stdout.setEncoding('utf8');
+	openssl.stdout.on('data', (data) => {
+		console.log(data);
+	});
+	openssl.stderr.on('data', (data) => {
+		console.error(data);
+	});
+	openssl.on('error', (err) => {
+		console.error(err);
+	});
+	openssl.on('close', (code, signal) => {
+		console.log('Openssl closed with code ' + code);
+	});
+}
+
 generateCertificate();
