@@ -6,6 +6,7 @@ const axios = require('axios').default;
 function generateCertificate() {
 	switch (checkKeyType()) {
 		case "origin-ecc":
+			createEcdsaPrivKey();
 			break;
 	}
 }
@@ -53,6 +54,37 @@ function checkKeyType() {
 		return input;
 	} else {
 		throw new Error("Invalid key type. Valid choices: origin-rsa, origin-ecc");
+	}
+}
+
+const spawn = require('child_process').spawn;
+
+function createEcdsaPrivKey() {
+	let openssl = spawn("openssl", ['ecparam', '-out', ], {
+		cwd: '/tmp/',
+		windowsHide: true
+	});
+	openssl.stdout.setEncoding('utf8');
+	openssl.stdout.on('data', (data) => {
+		console.log(data);
+	});
+	openssl.stderr.on('data', (data) => {
+		console.error(data);
+	});
+	openssl.on('error', (err) => {
+		console.error(err);
+	});
+	openssl.on('close', (code, signal) => {
+		console.log('Openssl closed with code ' + code);
+		finishedKey();
+	});
+	openssl.on('exit', (code, signal) => {
+		console.log('Openssl exited with code ' + code);
+		finishedKey();
+	});
+
+	function finishedKey() {
+		console.info("ready");
 	}
 }
 
