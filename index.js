@@ -3,6 +3,13 @@
 require('dotenv').config();
 const axios = require('axios').default;
 
+function generateCertificate() {
+	switch (checkKeyType()) {
+		case "origin-ecc":
+			break;
+	}
+}
+
 let fileName = "cloudflare-";
 
 function checkHostnames() {
@@ -48,3 +55,5 @@ function checkKeyType() {
 		throw new Error("Invalid key type. Valid choices: origin-rsa, origin-ecc");
 	}
 }
+
+generateCertificate();
