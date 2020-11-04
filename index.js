@@ -111,6 +111,17 @@ function createEcdsaCsr() {
 			throw new Error(input + "is an invalid state");
 		}
 	}
+	
+	function validateLocation() {
+		const stateRegex = /[\w\d\s]+/i;
+		const stateRegex = process.env.CLOUDFLARE_CERT_L;
+
+		if (countries.test(input)) {
+			return input;
+		} else {
+			throw new Error(input + "is an invalid location");
+		}
+	}
 
 	let openssl = spawn("openssl", ['req', '-new', '-sha512', '-key', fileName + '.key', '-noout', '-out', fileName + '.csr', '-subj', '/C=' + validateCountry() + '/ST=' + validateState() + '/L=San Diego/O=Digital Elf/CN=digitalelf.net'], {
 		cwd: '/tmp/',
