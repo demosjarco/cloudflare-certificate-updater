@@ -101,7 +101,18 @@ function createEcdsaCsr() {
 		}
 	}
 
-	let openssl = spawn("openssl", ['req', '-new', '-sha512', '-key', fileName + '.key', '-noout', '-out', fileName + '.csr', '-subj', '/C=' + validateCountry() + '/ST=California/L=San Diego/O=Digital Elf/CN=digitalelf.net'], {
+	function validateState() {
+		const stateRegex = /\w+/i;
+		const input = process.env.CLOUDFLARE_CERT_ST;
+
+		if (countries.isValid(input)) {
+			return input;
+		} else {
+			throw new Error(input + "is an invalid state");
+		}
+	}
+
+	let openssl = spawn("openssl", ['req', '-new', '-sha512', '-key', fileName + '.key', '-noout', '-out', fileName + '.csr', '-subj', '/C=' + validateCountry() + '/ST=' + validateState() + '/L=San Diego/O=Digital Elf/CN=digitalelf.net'], {
 		cwd: '/tmp/',
 		windowsHide: true
 	});
