@@ -123,7 +123,29 @@ function createEcdsaCsr() {
 		}
 	}
 
-	let openssl = spawn("openssl", ['req', '-new', '-sha512', '-key', fileName + '.key', '-noout', '-out', fileName + '.csr', '-subj', '/C=' + validateCountry() + '/ST=' + validateState() + '/L=' + validateLocation() + '/O=Digital Elf/CN=digitalelf.net'], {
+	function validateOrganization() {
+		const orgRegex = /[\w\s]+/i;
+		const input = process.env.CLOUDFLARE_CERT_O;
+
+		if (orgRegex.test(input)) {
+			return input;
+		} else {
+			throw new Error(input + "is an invalid organization");
+		}
+	}
+
+	function validateCommonName() {
+		const cnRegex = /([\w\-]+\.?)+\.\w+$/i;
+		const input = process.env.CLOUDFLARE_CERT_CN;
+
+		if (cnRegex.test(input)) {
+			return input;
+		} else {
+			throw new Error(input + "is an invalid common name/fqdn");
+		}
+	}
+
+	let openssl = spawn("openssl", ['req', '-new', '-sha512', '-key', fileName + '.key', '-noout', '-out', fileName + '.csr', '-subj', '/C=' + validateCountry() + '/ST=' + validateState() + '/L=' + validateLocation() + '/O=' + validateOrganization() + '/CN=' + validateCommonName()], {
 		cwd: '/tmp/',
 		windowsHide: true
 	});
