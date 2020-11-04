@@ -161,7 +161,7 @@ function createEcdsaCsr() {
 		'req',
 		'-new',
 		'-sha512',
-		'-key ' + fileName + '.key',
+		'-key /etc/ssl/private/' + fileName + '.key',
 		'-out ' + fileName + '.csr',
 		'-subj "/C=' + validateCountry() + '/ST=' + validateState() + '/L=' + validateLocation().replace(/(\s+)/g, '\\$1') + '/O=' + validateOrganization().replace(/(\s+)/g, '\\$1') + '/CN=' + validateCommonName() + '"'
 	], {
