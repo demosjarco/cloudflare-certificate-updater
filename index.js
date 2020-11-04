@@ -60,7 +60,7 @@ function checkKeyType() {
 const spawn = require('child_process').spawn;
 
 function createEcdsaPrivKey() {
-	let openssl = spawn("openssl", ['ecparam', '-out', ], {
+	let openssl = spawn("openssl", ['ecparam', '-name', 'secp384r1', '-genkey', '-noout', '-out', fileName + '.key'], {
 		cwd: '/tmp/',
 		windowsHide: true
 	});
