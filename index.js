@@ -123,7 +123,7 @@ function createEcdsaCsr() {
 		}
 	}
 
-	let openssl = spawn("openssl", ['req', '-new', '-sha512', '-key', fileName + '.key', '-noout', '-out', fileName + '.csr', '-subj', '/C=' + validateCountry() + '/ST=' + validateState() + '/L=San Diego/O=Digital Elf/CN=digitalelf.net'], {
+	let openssl = spawn("openssl", ['req', '-new', '-sha512', '-key', fileName + '.key', '-noout', '-out', fileName + '.csr', '-subj', '/C=' + validateCountry() + '/ST=' + validateState() + '/L=' + validateLocation() + '/O=Digital Elf/CN=digitalelf.net'], {
 		cwd: '/tmp/',
 		windowsHide: true
 	});
