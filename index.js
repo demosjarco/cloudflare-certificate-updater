@@ -114,9 +114,9 @@ function createEcdsaCsr() {
 	
 	function validateLocation() {
 		const stateRegex = /[\w\d\s]+/i;
-		const stateRegex = process.env.CLOUDFLARE_CERT_L;
+		const input = process.env.CLOUDFLARE_CERT_L;
 
-		if (countries.test(input)) {
+		if (stateRegex.test(input)) {
 			return input;
 		} else {
 			throw new Error(input + "is an invalid location");
