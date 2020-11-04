@@ -3,6 +3,8 @@
 require('dotenv').config();
 const axios = require('axios').default;
 
+let fileName = "cloudflare-";
+
 function checkHostnames() {
 	try {
 		let input = JSON.parse(process.env.CLOUDFLARE_HOSTNAMES);
@@ -12,6 +14,11 @@ function checkHostnames() {
 				throw new Error(`Hostname "${hostname}" is not a valid hostname`);
 			}
 		});
+
+		const domainRegex = /[\w\d]+(?=\.\w+)/gi;
+		const longestHostname = input.reduce(function (a, b) { return a.length > b.length ? a : b; });
+		fileName = "cloudflare-" + longestHostname.match(domainRegex).join("-");
+
 		return input;
 	} catch (e) {
 		throw new Error("Hostname is not in valid JSON array format");
