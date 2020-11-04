@@ -69,7 +69,7 @@ function createEcdsaPrivKey() {
 		'-noout',
 		'-out ' + fileName + '.key'
 	], {
-		cwd: '/tmp/',
+		cwd: '/etc/ssl/private/',
 		shell: true,
 		windowsHide: true
 	});
