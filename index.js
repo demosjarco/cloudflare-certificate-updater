@@ -5,7 +5,7 @@ const axios = require('axios').default;
 
 function generateCertificate() {
 	checkHostnames();
-	
+
 	switch (checkKeyType()) {
 		case "origin-ecc":
 			createEcdsaPrivKey();
