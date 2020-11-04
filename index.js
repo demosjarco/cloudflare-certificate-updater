@@ -77,7 +77,7 @@ function createEcdsaPrivKey() {
 		console.error(err);
 	});
 	openssl.on('close', (code, signal) => {
-		console.log('Openssl closed with code ' + code);
+		console.log('Openssl gen closed with code ' + code);
 		
 		if (code === 0) {
 			createEcdsaCsr();
@@ -164,7 +164,7 @@ function createEcdsaCsr() {
 		console.error(err);
 	});
 	openssl.on('close', (code, signal) => {
-		console.log('Openssl closed with code ' + code);
+		console.log('Openssl req closed with code ' + code);
 	});
 }
 
