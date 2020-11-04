@@ -102,7 +102,7 @@ function createEcdsaCsr() {
 	}
 
 	function validateState() {
-		const stateRegex = /[\w\d\s]+/i;
+		const stateRegex = /[\w\s]+/i;
 		const input = process.env.CLOUDFLARE_CERT_ST;
 
 		if (stateRegex.test(input)) {
@@ -113,7 +113,7 @@ function createEcdsaCsr() {
 	}
 	
 	function validateLocation() {
-		const stateRegex = /[\w\d\s]+/i;
+		const stateRegex = /[\w\s]+/i;
 		const input = process.env.CLOUDFLARE_CERT_L;
 
 		if (stateRegex.test(input)) {
