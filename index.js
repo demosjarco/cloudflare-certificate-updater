@@ -78,16 +78,7 @@ function createEcdsaPrivKey() {
 	});
 	openssl.on('close', (code, signal) => {
 		console.log('Openssl closed with code ' + code);
-		finishedKey();
 	});
-	openssl.on('exit', (code, signal) => {
-		console.log('Openssl exited with code ' + code);
-		finishedKey();
-	});
-
-	function finishedKey() {
-		console.info("ready");
-	}
 }
 
 generateCertificate();
