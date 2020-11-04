@@ -154,6 +154,7 @@ function createEcdsaCsr() {
 	console.log('openssl', opensslArgs.join(' '));
 	let openssl = spawn("openssl", opensslArgs, {
 		cwd: '/tmp/',
+		shell: true,
 		windowsHide: true
 	});
 	openssl.stdout.setEncoding('utf8');
