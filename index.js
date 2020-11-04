@@ -105,7 +105,7 @@ function createEcdsaCsr() {
 		const stateRegex = /[\w\d\s]+/i;
 		const input = process.env.CLOUDFLARE_CERT_ST;
 
-		if (countries.isValid(input)) {
+		if (stateRegex.test(input)) {
 			return input;
 		} else {
 			throw new Error(input + "is an invalid state");
