@@ -102,7 +102,7 @@ function createEcdsaCsr() {
 	}
 
 	function validateState() {
-		const stateRegex = /\w+/i;
+		const stateRegex = /[\w\d\s]+/i;
 		const input = process.env.CLOUDFLARE_CERT_ST;
 
 		if (countries.isValid(input)) {
