@@ -70,6 +70,7 @@ function createEcdsaPrivKey() {
 	openssl.stdout.on('data', (data) => {
 		console.log(data);
 	});
+	openssl.stderr.setEncoding('utf8');
 	openssl.stderr.on('data', (data) => {
 		console.error(data);
 	});
