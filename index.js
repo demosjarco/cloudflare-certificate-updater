@@ -150,7 +150,7 @@ function createEcdsaCsr() {
 		}
 	}
 
-	const opensslArgs = ['req', '-new', '-sha512', '-key ' + fileName + '.key', '-out' + fileName + '.csr', '-subj "/C=' + validateCountry() + '/ST=' + validateState() + '/L=' + validateLocation().replace(/(\s+)/g, '\\$1') + '/O=' + validateOrganization().replace(/(\s+)/g, '\\$1') + '/CN=' + validateCommonName() + '"'];
+	const opensslArgs = ['req', '-new', '-sha512', '-key ' + fileName + '.key', '-out ' + fileName + '.csr', '-subj "/C=' + validateCountry() + '/ST=' + validateState() + '/L=' + validateLocation().replace(/(\s+)/g, '\\$1') + '/O=' + validateOrganization().replace(/(\s+)/g, '\\$1') + '/CN=' + validateCommonName() + '"'];
 	console.log('openssl', opensslArgs.join(' '));
 	let openssl = spawn("openssl", opensslArgs, {
 		cwd: '/tmp/',
