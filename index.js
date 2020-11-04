@@ -3,6 +3,21 @@
 require('dotenv').config();
 const axios = require('axios').default;
 
+function checkHostnames() {
+	try {
+		let input = JSON.parse(process.env.CLOUDFLARE_HOSTNAMES);
+		let validHostname = /^(\*\.)?([\w\d]+\.?)*\.\w+$/i;
+		input.forEach((hostname) => {
+			if (!validHostname.test(hostname)) {
+				throw new Error(`Hostname "${hostname}" is not a valid hostname`);
+			}
+		});
+		return input;
+	} catch (e) {
+		throw new Error("Hostname is not in valid JSON array format");
+	}
+}
+
 function checkValidityLength() {
 	const valid = [7, 30, 90, 365, 730, 1095, 5475];
 	const input = parseInt(process.env.CLOUDFLARE_VALIDITY);
