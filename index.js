@@ -109,12 +109,12 @@ function createEcdsaPrivKey() {
 
 			chown('/etc/ssl/private/' + fileName + '.key', 'root', 'ssl-cert');
 
-			createEcdsaCsr();
+			createEcdsaCsr('/etc/ssl/private/' + fileName + '.key');
 		}
 	});
 }
 
-function createEcdsaCsr() {
+function createEcdsaCsr(path) {
 	function validateCountry() {
 		const countries = require("i18n-iso-countries");
 		let input = process.env.CLOUDFLARE_CERT_C;
@@ -182,7 +182,7 @@ function createEcdsaCsr() {
 		'req',
 		'-new',
 		'-sha512',
-		'-key /etc/ssl/private/' + fileName + '.key',
+		'-key ' + path,
 		'-out ' + fileName + '.csr',
 		'-subj "/C=' + validateCountry() + '/ST=' + validateState() + '/L=' + validateLocation().replace(/(\s+)/g, '\\$1') + '/O=' + validateOrganization().replace(/(\s+)/g, '\\$1') + '/CN=' + validateCommonName() + '"'
 	], {
