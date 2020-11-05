@@ -265,7 +265,7 @@ function createCertificate(certificate) {
 		throw error;
 	}).then((response) => {
 		finalCert += response.data;
-		console.log(finalCert);
+
 	});
 }
 
