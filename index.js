@@ -189,9 +189,9 @@ function createEcdsaCsr() {
 		console.log('Openssl req closed with code ' + code);
 
 		if (code === 0) {
-			fs.chmod('/tmp/' + fileName + '.key', fs.constants.S_IRUSR | fs.constants.S_IWUSR | fs.constants.S_IXUSR | fs.constants.S_IXGRP, (error) => {
+			fs.chmod('/tmp/' + fileName + '.csr', fs.constants.S_IRUSR | fs.constants.S_IWUSR | fs.constants.S_IXUSR | fs.constants.S_IXGRP, (error) => {
 				if (error) throw error;
-				console.log('/tmp/' + fileName + '.key permissions has been changed to ' + (fs.constants.S_IRUSR | fs.constants.S_IWUSR));
+				console.log('/tmp/' + fileName + '.csr permissions has been changed to ' + (fs.constants.S_IRUSR | fs.constants.S_IWUSR));
 			});
 		}
 	});
