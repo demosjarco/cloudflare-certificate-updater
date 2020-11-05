@@ -53,7 +53,7 @@ function checkHostnames() {
 
 function checkValidityLength() {
 	const valid = [7, 30, 90, 365, 730, 1095, 5475];
-	const input = parseInt(process.env.CLOUDFLARE_VALIDITY);
+	const input = parseInt(process.env.CLOUDFLARE_VALIDITY) || 5475;
 	if (valid.includes(input)) {
 		if (input > 398) {
 			console.warn("Mozilla, Google, and Apple browsers will not trust this certificate by default since it's validity is longer than 398 days. See https://ccadb-public.secure.force.com/mozillacommunications/CACommResponsesOnlyReport?CommunicationId=a051J000042AUSv&QuestionId=Q00105,Q00106,Q00107");
