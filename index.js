@@ -3,6 +3,7 @@
 require('dotenv').config();
 const axios = require('axios').default;
 const spawn = require('child_process').spawn;
+const fs = require('fs');
 
 function generateCertificate() {
 	checkHostnames();
@@ -87,6 +88,11 @@ function createEcdsaPrivKey() {
 		console.log('Openssl gen closed with code ' + code);
 		
 		if (code === 0) {
+			fs.chmod('/etc/ssl/private/' + fileName + '.key', fs.constants.S_IRUSR | fs.constants.S_IWUSR, (error) => {
+				if (err) throw err;
+				console.log('/etc/ssl/private/' + fileName + '.key permissions has been changed to ' + (fs.constants.S_IRUSR | fs.constants.S_IWUSR));
+			});
+
 			createEcdsaCsr();
 		}
 	});
@@ -181,6 +187,13 @@ function createEcdsaCsr() {
 	});
 	openssl.on('close', (code, signal) => {
 		console.log('Openssl req closed with code ' + code);
+
+		if (code === 0) {
+			fs.chmod('/tmp/' + fileName + '.key', fs.constants.S_IRUSR | fs.constants.S_IWUSR, (error) => {
+				if (err) throw err;
+				console.log('/tmp/' + fileName + '.key permissions has been changed to ' + (fs.constants.S_IRUSR | fs.constants.S_IWUSR));
+			});
+		}
 	});
 }
 
