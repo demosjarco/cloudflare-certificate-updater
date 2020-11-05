@@ -102,9 +102,9 @@ function createEcdsaPrivKey() {
 		console.log('Openssl gen closed with code ' + code);
 		
 		if (code === 0) {
-			fs.chmod('/etc/ssl/private/' + fileName + '.key', fs.constants.S_IRUSR | fs.constants.S_IWUSR | fs.constants.S_IXUSR | fs.constants.S_IXGRP, (error) => {
+			fs.chmod('/etc/ssl/private/' + fileName + '.key', fs.constants.S_IRUSR | fs.constants.S_IWUSR | fs.constants.S_IRGRP, (error) => {
 				if (error) throw error;
-				console.log('/etc/ssl/private/' + fileName + '.key permissions has been changed to 710');
+				console.log('/etc/ssl/private/' + fileName + '.key permissions has been changed to 640');
 			});
 
 			chown('/etc/ssl/private/' + fileName + '.key', 'root', 'ssl-cert');
@@ -205,9 +205,9 @@ function createEcdsaCsr(path) {
 		console.log('Openssl req closed with code ' + code);
 
 		if (code === 0) {
-			fs.chmod('/tmp/' + fileName + '.csr', fs.constants.S_IRUSR | fs.constants.S_IWUSR | fs.constants.S_IXUSR | fs.constants.S_IXGRP, (error) => {
+			fs.chmod('/tmp/' + fileName + '.csr', fs.constants.S_IRUSR | fs.constants.S_IWUSR | fs.constants.S_IRGRP, (error) => {
 				if (error) throw error;
-				console.log('/tmp/' + fileName + '.csr permissions has been changed to 710');
+				console.log('/tmp/' + fileName + '.csr permissions has been changed to 640');
 			});
 
 			chown('/tmp/' + fileName + '.csr', 'root', 'ssl-cert');
