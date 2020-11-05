@@ -211,7 +211,29 @@ function createEcdsaCsr(path) {
 			});
 
 			chown('/tmp/' + fileName + '.csr', 'root', 'ssl-cert');
+
+			uploadCsr('/tmp/' + fileName + '.csr');
 		}
+	});
+}
+
+function uploadCsr(path) {
+	fs.readFile(path, 'utf8', (err, data) => {
+		if (err) throw err;
+
+		const temp = JSON.stringify({
+			"hostnames": checkHostnames(),
+			"requested_validity": checkValidityLength(),
+			"request_type": checkKeyType(),
+			"csr": data
+		});
+		console.log(temp);
+		/*axios.post('https://api.cloudflare.com/client/v4/certificates', temp, {
+			headers: {
+				'Content-Type': 'application/json',
+				'X-Auth-User-Service-Key': process.env.CLOUDFLARE_ORIGIN_CA_KEY
+			}
+		});*/
 	});
 }
 
