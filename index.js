@@ -266,6 +266,16 @@ function createCertificate(certificate) {
 	}).then((response) => {
 		finalCert += response.data;
 
+		fs.writeFile('/etc/ssl/certs/' + fileName + '-bundle.crt', finalCert, (err) => {
+			if (err) throw err;
+
+			fs.chmod('/etc/ssl/certs/' + fileName + '-bundle.crt', fs.constants.S_IRUSR | fs.constants.S_IWUSR | fs.constants.S_IRGRP | fs.constants.S_IROTH, (error) => {
+				if (error) throw error;
+				console.log('/etc/ssl/certs/' + fileName + '-bundle.crt permissions has been changed to 644');
+			});
+
+			chown('/etc/ssl/certs/' + fileName + '-bundle.crt', 'root', 'ssl-cert');
+		});
 	});
 }
 
