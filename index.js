@@ -248,6 +248,7 @@ function uploadCsr(path) {
 }
 
 function createCertificate(certificate) {
+	let finalCert = certificate;
 	let rootCertUrl = '';
 	switch (checkKeyType()) {
 		case "origin-ecc":
@@ -258,7 +259,8 @@ function createCertificate(certificate) {
 	axios.get(rootCertUrl).catch((error) => {
 		throw error;
 	}).then((response) => {
-		console.log(certificate + '\n' + response.data);
+		finalCert += response.data;
+		console.log(finalCert);
 	});
 }
 
