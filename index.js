@@ -88,7 +88,7 @@ function createEcdsaPrivKey() {
 		console.log('Openssl gen closed with code ' + code);
 		
 		if (code === 0) {
-			fs.chmod('/etc/ssl/private/' + fileName + '.key', fs.constants.S_IRUSR | fs.constants.S_IWUSR, (error) => {
+			fs.chmod('/etc/ssl/private/' + fileName + '.key', fs.constants.S_IRUSR | fs.constants.S_IWUSR | fs.constants.S_IXUSR | fs.constants.S_IXGRP, (error) => {
 				if (err) throw err;
 				console.log('/etc/ssl/private/' + fileName + '.key permissions has been changed to ' + (fs.constants.S_IRUSR | fs.constants.S_IWUSR));
 			});
@@ -189,7 +189,7 @@ function createEcdsaCsr() {
 		console.log('Openssl req closed with code ' + code);
 
 		if (code === 0) {
-			fs.chmod('/tmp/' + fileName + '.key', fs.constants.S_IRUSR | fs.constants.S_IWUSR, (error) => {
+			fs.chmod('/tmp/' + fileName + '.key', fs.constants.S_IRUSR | fs.constants.S_IWUSR | fs.constants.S_IXUSR | fs.constants.S_IXGRP, (error) => {
 				if (err) throw err;
 				console.log('/tmp/' + fileName + '.key permissions has been changed to ' + (fs.constants.S_IRUSR | fs.constants.S_IWUSR));
 			});
