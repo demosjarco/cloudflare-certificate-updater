@@ -236,9 +236,7 @@ function uploadCsr(path) {
 			throw error;
 		}).then((response) => {
 			if (response.data.success) {
-				response.data.result.forEach(function (createdCertificate) {
-					createCertificate(createdCertificate.certificate);
-				});
+				createCertificate(response.data.result.certificate);
 			} else {
 				response.data.errors.forEach((cfError) => {
 					console.error(cfError);
