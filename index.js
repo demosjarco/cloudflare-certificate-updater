@@ -237,6 +237,7 @@ function uploadCsr(path) {
 		}).then((response) => {
 			if (response.data.success) {
 				response.data.result.forEach(function (createdCertificate) {
+					createCertificate(createdCertificate.certificate);
 				});
 			} else {
 				response.data.errors.forEach((cfError) => {
@@ -244,6 +245,21 @@ function uploadCsr(path) {
 				});
 			}
 		});
+	});
+}
+
+function createCertificate(certificate) {
+	let rootCertUrl = '';
+	switch (checkKeyType()) {
+		case "origin-ecc":
+			rootCertUrl = 'https://support.cloudflare.com/hc/article_attachments/360037898732/origin_ca_ecc_root.pem';
+			break;
+	}
+
+	axios.get(rootCertUrl).catch((error) => {
+		throw error;
+	}).then((response) => {
+		console.log(response);
 	});
 }
 
