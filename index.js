@@ -253,6 +253,18 @@ function uploadCsr(path) {
 }
 
 function createCertificate(certificate) {
+	fs.writeFile('/etc/ssl/certs/' + fileName + '.crt', certificate, (err) => {
+		if (err) throw err;
+
+		fs.chmod('/etc/ssl/certs/' + fileName + '.crt', fs.constants.S_IRUSR | fs.constants.S_IWUSR | fs.constants.S_IRGRP | fs.constants.S_IROTH, (error) => {
+			if (error) throw error;
+		});
+
+		chown('/etc/ssl/certs/' + fileName + '.crt', 'root', 'ssl-cert');
+
+		console.log('Public certificate file location:', '/etc/ssl/certs/' + fileName + '.crt');
+	});
+
 	let finalCert = certificate;
 	let rootCertUrl = '';
 	switch (checkKeyType()) {
