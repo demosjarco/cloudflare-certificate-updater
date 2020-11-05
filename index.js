@@ -8,17 +8,13 @@ const fs = require('fs');
 function chown(path, user, group = user) {
 	const uidNumber = require('uid-number');
 	
-	uidNumber(user, function (er1, uid1, gid1) {
-		if (er1) console.error(er1);
+	uidNumber(user, group, function (er, uid, gid) {
+		if (er) throw er;
 		
-		uidNumber(group, function (er2, uid2, gid2) {
-			if (er2) console.error(er2);
+		fs.chown(path, uid, gid, (err) => {
+			if (err) throw err;
 
-			fs.chown(path, uid1, gid2, (err) => {
-				if (err) throw err;
-
-				console.log(path, 'ownership has been changed to ' + user + ' (' + uid1 + ') : ' + group + ' (' + gid2 + ')');
-			});
+			console.log(path, 'ownership has been changed to ' + user + ' (' + uid + ') : ' + group + ' (' + gid + ')');
 		});
 	});
 }
