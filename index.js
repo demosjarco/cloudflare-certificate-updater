@@ -2,6 +2,7 @@
 
 require('dotenv').config();
 const axios = require('axios').default;
+const spawn = require('child_process').spawn;
 
 function generateCertificate() {
 	checkHostnames();
@@ -58,8 +59,6 @@ function checkKeyType() {
 		throw new Error("Invalid key type. Valid choices: origin-rsa, origin-ecc");
 	}
 }
-
-const spawn = require('child_process').spawn;
 
 function createEcdsaPrivKey() {
 	let openssl = spawn("openssl", [
