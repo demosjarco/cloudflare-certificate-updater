@@ -13,8 +13,6 @@ function chown(path, user, group = user) {
 		
 		fs.chown(path, uid, gid, (err) => {
 			if (err) throw err;
-
-			console.log(path, 'ownership has been changed to ' + user + ' (' + uid + ') : ' + group + ' (' + gid + ')');
 		});
 	});
 }
@@ -98,18 +96,17 @@ function createEcdsaPrivKey() {
 	openssl.on('error', (err) => {
 		console.error(err);
 	});
-	openssl.on('close', (code, signal) => {
-		console.log('Openssl gen closed with code ' + code);
-		
+	openssl.on('close', (code, signal) => {		
 		if (code === 0) {
 			fs.chmod('/etc/ssl/private/' + fileName + '.key', fs.constants.S_IRUSR | fs.constants.S_IWUSR | fs.constants.S_IRGRP, (error) => {
 				if (error) throw error;
-				console.log('/etc/ssl/private/' + fileName + '.key permissions has been changed to 640');
 			});
 
 			chown('/etc/ssl/private/' + fileName + '.key', 'root', 'ssl-cert');
 
 			createEcdsaCsr('/etc/ssl/private/' + fileName + '.key');
+
+			console.log('Private key file location:', '/etc/ssl/private/' + fileName + '.key');
 		}
 	});
 }
@@ -202,12 +199,9 @@ function createEcdsaCsr(path) {
 		console.error(err);
 	});
 	openssl.on('close', (code, signal) => {
-		console.log('Openssl req closed with code ' + code);
-
 		if (code === 0) {
 			fs.chmod('/tmp/' + fileName + '.csr', fs.constants.S_IRUSR | fs.constants.S_IWUSR | fs.constants.S_IRGRP, (error) => {
 				if (error) throw error;
-				console.log('/tmp/' + fileName + '.csr permissions has been changed to 640');
 			});
 
 			chown('/tmp/' + fileName + '.csr', 'root', 'ssl-cert');
@@ -238,7 +232,6 @@ function uploadCsr(path) {
 			if (response.data.success) {
 				fs.unlink(path, (err2) => {
 					if (err2) throw err2;
-					console.log(path, 'has been deleted');
 				});
 
 				createCertificate(response.data.result.certificate);
@@ -283,10 +276,11 @@ function createCertificate(certificate) {
 
 			fs.chmod('/etc/ssl/certs/' + fileName + '-bundle.crt', fs.constants.S_IRUSR | fs.constants.S_IWUSR | fs.constants.S_IRGRP | fs.constants.S_IROTH, (error) => {
 				if (error) throw error;
-				console.log('/etc/ssl/certs/' + fileName + '-bundle.crt permissions has been changed to 644');
 			});
 
 			chown('/etc/ssl/certs/' + fileName + '-bundle.crt', 'root', 'ssl-cert');
+
+			console.log('Public bundle certificate file location:', '/etc/ssl/certs/' + fileName + '-bundle.crt');
 		});
 	});
 }
