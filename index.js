@@ -111,6 +111,8 @@ function createEcdsaPrivKey() {
 				console.log('/etc/ssl/private/' + fileName + '.key permissions has been changed to 710');
 			});
 
+			chown('/etc/ssl/private/' + fileName + '.key', 'root', 'ssl-cert');
+
 			createEcdsaCsr();
 		}
 	});
