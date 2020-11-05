@@ -6,7 +6,7 @@ const spawn = require('child_process').spawn;
 const fs = require('fs');
 
 function chown(path, user, group = user) {
-	const uidNumber = require("uid-number");
+	const uidNumber = require('uid-number');
 	
 	uidNumber(user, function (er1, uid1, gid1) {
 		if (er1) console.error(er1);
