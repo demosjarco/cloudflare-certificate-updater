@@ -236,6 +236,11 @@ function uploadCsr(path) {
 			throw error;
 		}).then((response) => {
 			if (response.data.success) {
+				fs.unlink(path, (err2) => {
+					if (err2) throw err2;
+					console.log(path, 'has been deleted');
+				});
+
 				createCertificate(response.data.result.certificate);
 				console.log('Got an', response.data.result.request_type, 'certificate from Cloudflare for', response.data.result.hostnames, 'that expires on', new Date(response.data.result.expires_on).toString());
 			} else {
