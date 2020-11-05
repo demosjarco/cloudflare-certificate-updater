@@ -258,7 +258,7 @@ function createCertificate(certificate) {
 	axios.get(rootCertUrl).catch((error) => {
 		throw error;
 	}).then((response) => {
-		console.log(response);
+		console.log(certificate + '\n' + response.data);
 	});
 }
 
