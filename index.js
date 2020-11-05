@@ -209,6 +209,8 @@ function createEcdsaCsr() {
 				if (error) throw error;
 				console.log('/tmp/' + fileName + '.csr permissions has been changed to 710');
 			});
+
+			chown('/tmp/' + fileName + '.csr', 'root', 'ssl-cert');
 		}
 	});
 }
