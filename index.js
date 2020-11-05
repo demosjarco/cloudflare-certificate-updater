@@ -237,6 +237,7 @@ function uploadCsr(path) {
 		}).then((response) => {
 			if (response.data.success) {
 				createCertificate(response.data.result.certificate);
+				console.log('Got a', response.data.result.request_type, 'certificate from Cloudflare for', response.data.result.hostnames, 'that expires on', new Date(response.data.result.expires_on).toString());
 			} else {
 				response.data.errors.forEach((cfError) => {
 					console.error(cfError);
