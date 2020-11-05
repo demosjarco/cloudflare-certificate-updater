@@ -9,10 +9,10 @@ function chown(path, user, group = user) {
 	const uidNumber = require("uid-number");
 	
 	uidNumber(user, function (er1, uid1, gid1) {
-		if (er1) throw er1;
+		if (er1) console.error(er1);
 		
 		uidNumber(group, function (er2, uid2, gid2) {
-			if (er2) throw er2;
+			if (er2) console.error(er2);
 
 			fs.chown(path, uid1, gid2, (err) => {
 				if (err) throw err;
