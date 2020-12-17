@@ -21,6 +21,9 @@ function generateCertificate() {
 	checkHostnames();
 
 	switch (checkKeyType()) {
+		case "origin-rsa":
+			createRsaPrivKey();
+			break;
 		case "origin-ecc":
 			createEcdsaPrivKey();
 			break;
@@ -63,14 +66,17 @@ function checkValidityLength() {
 }
 
 function checkKeyType() {
-	//const valid = ["origin-rsa", "origin-ecc"];
-	const valid = ["origin-ecc"];
+	const valid = ["origin-rsa", "origin-ecc"];
 	const input = process.env.CLOUDFLARE_CERT_TYPE;
 	if (valid.includes(input)) {
 		return input;
 	} else {
 		throw new Error("Invalid key type. Valid choices: origin-rsa, origin-ecc");
 	}
+}
+
+function createRsaPrivKey() {
+
 }
 
 function createEcdsaPrivKey() {
@@ -261,6 +267,9 @@ function createCertificate(certificate) {
 	let finalCert = certificate;
 	let rootCertUrl = '';
 	switch (checkKeyType()) {
+		case "origin-rsa":
+			rootCertUrl = 'https://support.cloudflare.com/hc/article_attachments/360037885371/origin_ca_rsa_root.pem';
+			break;
 		case "origin-ecc":
 			rootCertUrl = 'https://support.cloudflare.com/hc/article_attachments/360037898732/origin_ca_ecc_root.pem';
 			break;
