@@ -11,7 +11,7 @@
 		"url": "git+https://github.com/demosjarco/cloudflare-certificate-updater.git"
 	},
 	"author": "demosjarco",
-	"license": "UNLICENSED",
+	"license": "GPL-3.0-or-later",
 	"private": true,
 	"bugs": {
 		"url": "https://github.com/demosjarco/cloudflare-certificate-updater/issues"
