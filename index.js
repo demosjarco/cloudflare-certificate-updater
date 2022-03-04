@@ -262,7 +262,7 @@ function createCertificate(certificate) {
 	let rootCertUrl = '';
 	switch (checkKeyType()) {
 		case "origin-ecc":
-			rootCertUrl = 'https://developers.cloudflare.com/ssl/0d2cd0f374da0fb6dbf53128b60bbbf7/origin_ca_ecc_root.pem';
+			rootCertUrl = 'https://developers.cloudflare.com/ssl/static/origin_ca_ecc_root.pem';
 			break;
 	}
 
