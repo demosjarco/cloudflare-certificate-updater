@@ -31,6 +31,7 @@ let fileName = "cloudflare-";
 
 function checkHostnames() {
 	try {
+		console.log(process.env.CLOUDFLARE_HOSTNAMES);
 		let input = JSON.parse(process.env.CLOUDFLARE_HOSTNAMES);
 		let validHostname = /^(\*\.)?([\w\-]+\.?)*\.\w+$/i;
 		input.forEach((hostname) => {
