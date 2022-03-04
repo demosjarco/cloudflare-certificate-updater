@@ -226,10 +226,11 @@ function uploadCsr(path) {
 				'X-Auth-User-Service-Key': process.env.CLOUDFLARE_ORIGIN_CA_KEY
 			}
 		}).catch((error) => {
-			console.error(error.response.data);
+			// console.error(error.response.data);
 			// throw new Error(error.response.data.errors[0].code, {
 			// 	cause: error.response.data.errors[0].message
 			// });
+			throw error;
 		}).then((response) => {
 			if (response.data.success) {
 				fs.unlink(path, (err2) => {
