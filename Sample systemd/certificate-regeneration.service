@@ -7,7 +7,7 @@ Environment=JOBS=max
 Environment=NODE_ENV=production
 WorkingDirectory=/cloudflare-certificate-updater/
 ExecStartPre=/usr/bin/git pull
-ExecStartPre=/usr/bin/npm ci --omit=dev --audit=false --fund=false
+ExecStartPre=/usr/bin/npm ci --omit=dev --fund=false
 ExecStart=/usr/bin/node index.js
 ExecStartPost=systemctl restart nginx.service
 User=root
