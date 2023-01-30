@@ -17,7 +17,7 @@
 	},
 	"homepage": "https://github.com/demosjarco/cloudflare-certificate-updater#readme",
 	"dependencies": {
-		"axios": "^1.2.2",
+		"axios": "^1.2.6",
 		"dotenv": "^16.0.3",
 		"i18n-iso-countries": "^7.5.0",
 		"uid-number": "^0.0.6"
